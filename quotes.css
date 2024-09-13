@@ -1,0 +1,8 @@
+#quote-input{
+    display: flex;
+    flex-direction: column;
+}
+
+#quote-input button{
+    width: 200px;
+}
