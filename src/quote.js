@@ -3,13 +3,13 @@ const quoteSource = document.getElementById("source");
 const quoteAuthor = document.getElementById("author");
 const output = document.getElementById("container-output");
 const quoteList = [];
-quoteList.push(
+/*quoteList.push(
     {id: 1,
         text: "The only limit to our realization of tomorrow will be our doubts of today.",
         author: "Franklin D. Roosevelt",
         source: "Undelivered Address April 13, 1945"
     });
-
+*/
 const saveBtn = document.getElementById("save-btn");
 const exportBtn = document.getElementById("export-btn");
 saveBtn.addEventListener("click", ()=>{
@@ -25,6 +25,13 @@ saveBtn.addEventListener("click", ()=>{
     displayQuote(quoteList[quoteList.length-1]);
 });
 exportBtn.addEventListener("click", saveQuotes);
+
+function deleteQuote(id){
+    const quoteDiv = document.getElementById(`${id}-div`);
+    console.log("click");
+    quoteDiv.innerText="";
+    output.removeChild(quoteDiv);
+}
 
 function displayQuote(quote){
     const {id, text, author, source} = quote;
@@ -43,11 +50,7 @@ function displayQuote(quote){
     delBtn.classList.add("delete-btn");
     delBtn.type="button";
     delBtn.innerText="Delete";
-    delBtn.addEventListener("click", function(quoteDiv){
-        console.log("click");
-        quoteDiv.innerText = "";
-        //output.removeChild(quoteDiv);
-    })
+    delBtn.addEventListener("click", () => deleteQuote(id));
     quoteDiv.appendChild(pId);
     quoteDiv.appendChild(pText);
     quoteDiv.appendChild(pAuthor);
@@ -80,7 +83,7 @@ function displayQuoteList(){
         quoteJson.forEach((quote) => {
             quoteList.push({
                 id: quoteList.length+1,
-                text: quote.name,
+                text: quote.text,
                 author: quote.author,
                 source: quote.source
             });
