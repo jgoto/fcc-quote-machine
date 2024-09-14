@@ -30,6 +30,7 @@ function displayQuote(quote){
     const {id, text, author, source} = quote;
     const quoteDiv = document.createElement("div");
     quoteDiv.classList.add("quote");
+    quoteDiv.id=`${id}-div`;
     const pId = document.createElement("p");
     pId.innerText = id;
     const pText = document.createElement("p");
@@ -38,14 +39,58 @@ function displayQuote(quote){
     pAuthor.innerText = author;
     const pSource = document.createElement("p");
     pSource.innerText = source;
+    const delBtn = document.createElement("button");
+    delBtn.classList.add("delete-btn");
+    delBtn.type="button";
+    delBtn.innerText="Delete";
+    delBtn.addEventListener("click", function(quoteDiv){
+        console.log("click");
+        quoteDiv.innerText = "";
+        //output.removeChild(quoteDiv);
+    })
     quoteDiv.appendChild(pId);
     quoteDiv.appendChild(pText);
     quoteDiv.appendChild(pAuthor);
     quoteDiv.appendChild(pSource);
+    quoteDiv.appendChild(delBtn);
     output.appendChild(quoteDiv);
 }
 
-displayQuote(quoteList[0]);
+function loadQuoteList(){
+    try {
+        const quoteStr = localStorage.getItem("quotes");
+        if(!quoteStr)
+            console.log("Quote data not found");
+        else{
+            return JSON.parse(quoteStr);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function displayQuoteList(){
+    const quoteJson = loadQuoteList();
+    if(!quoteJson)
+    {
+        console.log("No quotes saved");
+    }
+    else
+    {
+        quoteJson.forEach((quote) => {
+            quoteList.push({
+                id: quoteList.length+1,
+                text: quote.name,
+                author: quote.author,
+                source: quote.source
+            });
+            displayQuote(quote);
+        });
+    }
+
+}
+
+displayQuoteList();
 
 function saveQuotes(){
     localStorage.setItem("quotes", JSON.stringify(quoteList));
