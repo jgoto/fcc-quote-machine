@@ -37,6 +37,8 @@ function deleteQuote(id){
     console.log("click");
     quoteDiv.innerText="";
     output.removeChild(quoteDiv);
+    const quoteToDelete = quoteList.findIndex((quote)=>id===quote.id);
+    quoteList.splice(quoteToDelete, 1);
 }
 
 function displayQuote(quote){
@@ -88,7 +90,7 @@ function displayQuoteList(){
     {
         quoteJson.forEach((quote) => {
             quoteList.push({
-                id: quoteList.length+1,
+                id: quote.id,
                 text: quote.text,
                 author: quote.author,
                 source: quote.source
