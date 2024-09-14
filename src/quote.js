@@ -10,11 +10,17 @@ const quoteList = [];
         source: "Undelivered Address April 13, 1945"
     });
 */
+function generateQuoteId(){
+    const hexId = Math.random().toString(16).substring(2,12);
+    console.log(hexId)
+    return hexId;
+}
+
 const saveBtn = document.getElementById("save-btn");
 const exportBtn = document.getElementById("export-btn");
 saveBtn.addEventListener("click", ()=>{
     quoteList.push({
-        id: quoteList.length+1,
+        id: generateQuoteId(),
         text: quoteText.value,
         author: quoteAuthor.value,
         source: quoteSource.value
@@ -90,7 +96,6 @@ function displayQuoteList(){
             displayQuote(quote);
         });
     }
-
 }
 
 displayQuoteList();
